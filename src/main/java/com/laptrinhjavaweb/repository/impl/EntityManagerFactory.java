@@ -9,10 +9,6 @@ public class EntityManagerFactory {
 	private static ResourceBundle resourceBundle = ResourceBundle.getBundle("db");
 	public static Connection getConnection() {
 		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			String url = "jdbc:mysql://localhost:3306/estatejdbc82019";
-//			String user = "root";
-//			String password = "canh1994";
 			Class.forName(resourceBundle.getString("driverName"));
 			String url = resourceBundle.getString("url");
 			String user = resourceBundle.getString("user");

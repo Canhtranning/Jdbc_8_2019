@@ -1,9 +1,8 @@
 package com.laptrinhjavaweb.repository;
 
-import java.util.List;
 
-import com.laptrinhjavaweb.dto.BuildingDTO;
+import com.laptrinhjavaweb.entity.BuildingEntity;
 
-public interface IBuildingRepository {
-List<BuildingDTO>findAll();
+public interface IBuildingRepository extends JpaRepository<BuildingEntity>{
+
 }

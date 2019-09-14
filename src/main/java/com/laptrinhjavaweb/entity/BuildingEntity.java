@@ -1,86 +1,71 @@
-package com.laptrinhjavaweb.dto;
+package com.laptrinhjavaweb.entity;
 
-import java.util.Date;
+import com.laptrinhjavaweb.anotation.Column;
+import com.laptrinhjavaweb.anotation.Entity;
+import com.laptrinhjavaweb.anotation.Table;
 
-public class BuildingDTO {
-	private Long id;
-	
-	
+@Entity
+@Table(name = "building")
+public class BuildingEntity extends BaseEntity {
+	@Column(name = "name")
 	private String name;
-	
-	
+
+	@Column(name = "numberofbasement")
 	private Integer numberOfBasement;
-	
 
+	@Column(name = "buildingarea")
 	private Integer buildingArea;
-	
 
+	@Column(name = "district")
 	private String district;
-	
 
+	@Column(name = "ward")
 	private String ward;
 
+	@Column(name = "street")
 	private String street;
-	
-	
-	private String structure;
-	
 
+	@Column(name = "structure")
+	private String structure;
+
+	@Column(name = "costrent")
 	private Integer costRent;
 
-
+	@Column(name = "servicecost")
 	private String serviceCost;
 
-	
+	@Column(name = "carcost")
 	private String carCost;
 
-
+	@Column(name = "motorbikecost")
 	private String motorbikeCost;
 
-
+	@Column(name = "overtimecost")
 	private String overtimeCost;
 
-
+	@Column(name = "electricitycost")
 	private String electricityCost;
 
-
+	@Column(name = "deposit")
 	private String deposit;
 
-
+	@Column(name = "payment")
 	private String payment;
 
-
+	@Column(name = "timerent")
 	private String timeRent;
 
-
+	@Column(name = "timedecorator")
 	private String timedeCorator;
 
-
+	@Column(name = "managername")
 	private String managerName;
 
-
+	@Column(name = "managerphone")
 	private String managerPhone;
-	
 
+	@Column(name = "type")
 	private String type;
-	
-
-	private Date createdDate;
-	
-
-	private Date modifiedDate;
-
-	private Date createdBy;
-	
-	private String modifiedBy;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -242,36 +227,4 @@ public class BuildingDTO {
 		this.type = type;
 	}
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public Date getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(Date createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-	
 }

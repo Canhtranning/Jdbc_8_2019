@@ -1,7 +1,7 @@
 package com.laptrinhjavaweb.repository;
 
+import com.laptrinhjavaweb.entity.UserEntity;
 
-
-public interface IUserRepository {
+public interface IUserRepository extends JpaRepository<UserEntity>{
 
 }
