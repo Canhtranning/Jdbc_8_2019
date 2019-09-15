@@ -5,5 +5,5 @@ import java.util.List;
 import com.laptrinhjavaweb.dto.UserDTO;
 
 public interface IUserservice {
-	List<UserDTO> findAll();
+	List<UserDTO> findAll(int offset,int limmit);
 }

@@ -17,8 +17,8 @@ public  class UserService implements IUserservice {
 		 userRepository = new UserRepository() ;
 		 userConverter = new UserConverter();
 	}
-	public List<UserDTO> findAll() {
-		return (List<UserDTO>) userRepository.findAll().stream().map(item -> userConverter.convertToDTO(item))
+	public List<UserDTO> findAll(int offset,int limmit) {
+		return (List<UserDTO>) userRepository.findAll(offset,limmit).stream().map(item -> userConverter.convertToDTO(item))
 				.collect(Collectors.toList());
 	}
 }

@@ -9,8 +9,12 @@ import com.laptrinhjavaweb.service.impl.BuildingService;
 public class BuildingController {
 
 	public static void main(String[] args) {
+		int page=1;
+		int limit=2;
+		int offset=(page -1) * limit;
+		
 		IBuildingservice buildingservice = new BuildingService();
-		List<BuildingDTO> buildingDTOs = buildingservice.findAll();
+		List<BuildingDTO> buildingDTOs = buildingservice.findAll(offset,limit);
 		for (BuildingDTO item : buildingDTOs) {
 			System.out.println("ID: " + item.getId()
 			+ "   " +"Name: " + item.getName() 

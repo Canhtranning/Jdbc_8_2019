@@ -5,5 +5,5 @@ import java.util.List;
 import com.laptrinhjavaweb.dto.BuildingDTO;
 
 public interface IBuildingservice {
-	List<BuildingDTO> findAll();
+	List<BuildingDTO> findAll(String name,String district,int buildingArea,int numberOfBasement,int offset,int limmit);
 }

@@ -18,7 +18,7 @@ public class BuildingService implements IBuildingservice {
 	}	
 
 	@Override
-	public List<BuildingDTO> findAll() {
+	public List<BuildingDTO> findAll(String name,String district,int buildingArea,int numberOfBasement,int offset,int limmit) {
 		// java 7
 //		List<BuildingDTO> result=new ArrayList<BuildingDTO>();
 //		List<BuildingEntity>buildingEntities=buildingRepository.findAll();
@@ -28,7 +28,7 @@ public class BuildingService implements IBuildingservice {
 //		}
 //		return result;
 		// java 8
-		return (List<BuildingDTO>) buildingRepository.findAll().stream()
+		return (List<BuildingDTO>) buildingRepository.findAll(offset,limmit).stream()
 				.map(item -> buildingConverter.convertToDTO(item)).collect(Collectors.toList());
 	}
 }

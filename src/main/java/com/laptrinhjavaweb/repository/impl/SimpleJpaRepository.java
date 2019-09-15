@@ -24,20 +24,24 @@ public class SimpleJpaRepository<T> implements JpaRepository<T> {
 	}
 
 	@Override
-	public List<T> findAll() {
+	public List<T> findAll(int offset, int limmit, Object... where) {
 		String tableName = "";
 		if (zClass.isAnnotationPresent(Entity.class) && zClass.isAnnotationPresent(Table.class)) {
 			Table tableClass = zClass.getAnnotation(Table.class);
 			tableName = tableClass.name();
 		}
-		String sql = "select * from " + tableName + "";
+
+		StringBuilder sql =new StringBuilder( "select * from " + tableName + " limit " + offset + ", " + limmit + " where 1=1 ");
+		if (where != null && where.length > 0) {
+			sql.append(where[0]);
+		}
 		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<>();
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
 			connection = EntityManagerFactory.getConnection();
-			statement = connection.prepareStatement(sql);
+			statement = connection.prepareStatement(sql.toString());
 			resultSet = statement.executeQuery();
 			return resultSetMapper.mapRow(resultSet, this.zClass);
 		} catch (SQLException e) {
