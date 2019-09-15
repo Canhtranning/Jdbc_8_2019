@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import com.laptrinhjavaweb.anotation.Entity;
@@ -31,18 +32,20 @@ public class SimpleJpaRepository<T> implements JpaRepository<T> {
 			tableName = tableClass.name();
 		}
 
-		StringBuilder sql =new StringBuilder( "select * from " + tableName + " limit " + offset + ", " + limmit + " where 1=1 ");
+		StringBuilder sql =new StringBuilder( "select * from " + tableName + " A limit " + offset + ", " + limmit + " where 1=1 ");
 		if (where != null && where.length > 0) {
 			sql.append(where[0]);
 		}
 		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<>();
 		Connection connection = null;
-		PreparedStatement statement = null;
+		//PreparedStatement statement = null;
+		Statement statement=null;
 		ResultSet resultSet = null;
 		try {
 			connection = EntityManagerFactory.getConnection();
-			statement = connection.prepareStatement(sql.toString());
-			resultSet = statement.executeQuery();
+			//statement = connection.prepareStatement(sql.toString());
+			statement=connection.createStatement();
+			resultSet = statement.executeQuery(sql.toString());
 			return resultSetMapper.mapRow(resultSet, this.zClass);
 		} catch (SQLException e) {
 			return null;

@@ -14,7 +14,7 @@ public class BuildingController {
 		int offset=(page -1) * limit;
 		
 		IBuildingservice buildingservice = new BuildingService();
-		List<BuildingDTO> buildingDTOs = buildingservice.findAll(offset,limit);
+		List<BuildingDTO> buildingDTOs = buildingservice.findAll(null, null, offset,limit, offset, offset);
 		for (BuildingDTO item : buildingDTOs) {
 			System.out.println("ID: " + item.getId()
 			+ "   " +"Name: " + item.getName() 
