@@ -3,15 +3,18 @@ package com.laptrinhjavaweb.repository.impl;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.laptrinhjavaweb.anotation.Entity;
 import com.laptrinhjavaweb.anotation.Table;
 import com.laptrinhjavaweb.mapper.ResultSetMapper;
+import com.laptrinhjavaweb.paging.Pageable;
 import com.laptrinhjavaweb.repository.JpaRepository;
 
 public class SimpleJpaRepository<T> implements JpaRepository<T> {
@@ -25,14 +28,83 @@ public class SimpleJpaRepository<T> implements JpaRepository<T> {
 	}
 
 	@Override
-	public List<T> findAll(int offset, int limmit, Object... where) {
+	public List<T> findAll(Map<String, Object>properties,Pageable pageable, Object... where) {
 		String tableName = "";
 		if (zClass.isAnnotationPresent(Entity.class) && zClass.isAnnotationPresent(Table.class)) {
 			Table tableClass = zClass.getAnnotation(Table.class);
 			tableName = tableClass.name();
 		}
 
-		StringBuilder sql =new StringBuilder( "select * from " + tableName + " A limit " + offset + ", " + limmit + " where 1=1 ");
+		StringBuilder sql =new StringBuilder( "select * from " + tableName + " A where 1=1 ");
+		sql=createSQLfindAll(sql,properties);
+		if (where != null && where.length > 0) {
+			sql.append(where[0]);
+		}
+		sql.append(" limit "+pageable.getOffset()+", "+pageable.getLimit()+"");
+		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<>();
+		Connection connection = null;
+		//PreparedStatement statement = null;
+		Statement statement=null;
+		ResultSet resultSet = null;
+		try {
+			connection = EntityManagerFactory.getConnection();
+			statement = connection.prepareStatement(sql.toString());
+			//statement=connection.createStatement();
+			resultSet = statement.executeQuery(sql.toString());
+			return resultSetMapper.mapRow(resultSet, this.zClass);
+		} catch (SQLException e) {
+			return null;
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (statement != null) {
+					statement.close();
+				}
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				return null;
+			}
+		}
+	}
+
+	private StringBuilder createSQLfindAll(StringBuilder where,Map<String, Object>params) {
+		if (params != null && params.size() > 0) {
+			String[] keys = new String[params.size()];
+			Object[] values = new String[params.size()];
+			int i = 0;
+			for (Map.Entry<String, Object> item : params.entrySet()) {
+
+				keys[i] = item.getKey();
+				values[i] = item.getValue();
+				i++;
+			}
+			//chi chuoi hoac so don moi lam dc nhu vay
+			for (int i1 = 0; i1 < keys.length; i1++) {
+				if (values[i1] instanceof String && (StringUtils.isNotBlank(values[i1].toString()))) {
+					where.append("AND LOWER(A."+keys[i]+") LIKE '%"+values[i1].toString()+"%' ");
+				} else if (values[i1] instanceof Integer && (values[i1] !=null)) {
+					where.append("AND LOWER(A."+keys[i]+") ="+values[i1]+" ");
+					} else if (values[i1] instanceof Long && (values[i1] !=null)) {
+						where.append("AND LOWER(A."+keys[i]+") ="+values[i1]+" ");
+				}
+			}
+		}
+		return where;
+	}
+
+	@Override
+	public List<T> findAll(Map<String, Object> properties, Object... where) {
+		String tableName = "";
+		if (zClass.isAnnotationPresent(Entity.class) && zClass.isAnnotationPresent(Table.class)) {
+			Table tableClass = zClass.getAnnotation(Table.class);
+			tableName = tableClass.name();
+		}
+		StringBuilder sql =new StringBuilder( "select * from " + tableName + " A where 1=1 ");
+		sql=createSQLfindAll(sql,properties);
 		if (where != null && where.length > 0) {
 			sql.append(where[0]);
 		}
@@ -43,8 +115,8 @@ public class SimpleJpaRepository<T> implements JpaRepository<T> {
 		ResultSet resultSet = null;
 		try {
 			connection = EntityManagerFactory.getConnection();
-			//statement = connection.prepareStatement(sql.toString());
-			statement=connection.createStatement();
+			statement = connection.prepareStatement(sql.toString());
+			//statement=connection.createStatement();
 			resultSet = statement.executeQuery(sql.toString());
 			return resultSetMapper.mapRow(resultSet, this.zClass);
 		} catch (SQLException e) {

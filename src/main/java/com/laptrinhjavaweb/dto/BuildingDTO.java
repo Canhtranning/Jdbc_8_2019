@@ -1,86 +1,33 @@
 package com.laptrinhjavaweb.dto;
 
-import java.util.Date;
+public class BuildingDTO extends AbstractDTO {
 
-public class BuildingDTO {
-	private Long id;
-	
-	
 	private String name;
-	
-	
-	private Integer numberOfBasement;
-	
-
-	private Integer buildingArea;
-	
-
+	private String numberOfBasement;
+	private String buildingArea;
 	private String district;
-	
-
 	private String ward;
-
 	private String street;
-	
-	
 	private String structure;
-	
-
 	private Integer costRent;
-
-
 	private String serviceCost;
-
-	
 	private String carCost;
-
-
 	private String motorbikeCost;
-
-
 	private String overtimeCost;
-
-
 	private String electricityCost;
-
-
 	private String deposit;
-
-
 	private String payment;
-
-
 	private String timeRent;
-
-
 	private String timedeCorator;
-
-
 	private String managerName;
-
-
 	private String managerPhone;
-	
+	private String[]buildingTypes=new String[] {};
+	private String costRentFrom;
+	private String costRentTo;
+	private String areaRentFrom;
+	private String areaRentTo;
 
 	private String type;
-	
-
-	private Date createdDate;
-	
-
-	private Date modifiedDate;
-
-	private Date createdBy;
-	
-	private String modifiedBy;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -89,23 +36,6 @@ public class BuildingDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Integer getNumberOfBasement() {
-		return numberOfBasement;
-	}
-
-	public void setNumberOfBasement(Integer numberOfBasement) {
-		this.numberOfBasement = numberOfBasement;
-	}
-
-	public Integer getBuildingArea() {
-		return buildingArea;
-	}
-
-	public void setBuildingArea(Integer buildingArea) {
-		this.buildingArea = buildingArea;
-	}
-
 	public String getDistrict() {
 		return district;
 	}
@@ -242,36 +172,60 @@ public class BuildingDTO {
 		this.type = type;
 	}
 
-	public Date getCreatedDate() {
-		return createdDate;
+	public String getNumberOfBasement() {
+		return numberOfBasement;
 	}
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+	public void setNumberOfBasement(String numberOfBasement) {
+		this.numberOfBasement = numberOfBasement;
 	}
 
-	public Date getModifiedDate() {
-		return modifiedDate;
+	public String getBuildingArea() {
+		return buildingArea;
 	}
 
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
+	public void setBuildingArea(String buildingArea) {
+		this.buildingArea = buildingArea;
 	}
 
-	public Date getCreatedBy() {
-		return createdBy;
+	public String[] getBuildingTypes() {
+		return buildingTypes;
 	}
 
-	public void setCreatedBy(Date createdBy) {
-		this.createdBy = createdBy;
+	public void setBuildingTypes(String[] buildingTypes) {
+		this.buildingTypes = buildingTypes;
 	}
 
-	public String getModifiedBy() {
-		return modifiedBy;
+	public String getCostRentFrom() {
+		return costRentFrom;
 	}
 
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
+	public void setCostRentFrom(String costRentFrom) {
+		this.costRentFrom = costRentFrom;
 	}
-	
+
+	public String getCostRentTo() {
+		return costRentTo;
+	}
+
+	public void setCostRentTo(String costRentTo) {
+		this.costRentTo = costRentTo;
+	}
+
+	public String getAreaRentFrom() {
+		return areaRentFrom;
+	}
+
+	public void setAreaRentFrom(String areaRentFrom) {
+		this.areaRentFrom = areaRentFrom;
+	}
+
+	public String getAreaRentTo() {
+		return areaRentTo;
+	}
+
+	public void setAreaRentTo(String areaRentTo) {
+		this.areaRentTo = areaRentTo;
+	}
+
 }

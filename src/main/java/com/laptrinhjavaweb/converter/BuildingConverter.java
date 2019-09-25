@@ -8,6 +8,12 @@ import com.laptrinhjavaweb.entity.BuildingEntity;
 public class BuildingConverter {
  public BuildingDTO convertToDTO(BuildingEntity entity) {
 	 ModelMapper modelMapper=new ModelMapper();
-	 return modelMapper.map(entity, BuildingDTO.class);
+	 BuildingDTO dto=modelMapper.map(entity, BuildingDTO.class);
+	 if (entity.getBuildingArea() !=null) {
+		dto.setBuildingArea(String.valueOf(entity.getBuildingArea()));
+	} if (entity.getNumberOfBasement() !=null) {
+		dto.setNumberOfBasement(String.valueOf(entity.getNumberOfBasement()));
+	}
+	 return dto;
  }
 }

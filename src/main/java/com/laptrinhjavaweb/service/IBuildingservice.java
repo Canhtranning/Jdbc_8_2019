@@ -2,8 +2,10 @@ package com.laptrinhjavaweb.service;
 
 import java.util.List;
 
+import com.laptrinhjavaweb.buider.BuildingSeachBuilder;
 import com.laptrinhjavaweb.dto.BuildingDTO;
+import com.laptrinhjavaweb.paging.Pageable;
 
 public interface IBuildingservice {
-	List<BuildingDTO> findAll(String name,String district,int buildingArea,int numberOfBasement,int offset,int limit);
+	List<BuildingDTO> findAll(BuildingSeachBuilder fieldSeach,Pageable pageable);
 }
